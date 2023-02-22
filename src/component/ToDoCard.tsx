@@ -1,4 +1,4 @@
-import React , {useState}from "react";
+import React , {useState,useRef,useEffect}from "react";
 import { AiFillEdit, AiFillDelete, AiOutlineFileDone } from "react-icons/ai";
 import { ToDo } from "../model";
 import "./styles.css";
@@ -34,13 +34,19 @@ setToDos(toDos.map(elm =>
         setEdit(false)
 }
 
+const inputRef = useRef<HTMLInputElement>(null)
+
+useEffect(() => {
+  inputRef.current?.focus();
+  
+}, [edit])
 
 
   return (
    
     <form className="todos_single" onSubmit={(e)=>handleEdit(e,todo.id)}>
         {
-            edit ? (<input value={editToDo} onChange={(e)=>setEditToDo(e.target.value)} className='todos_single--text'/>) : ( todo.isDone ? (
+            edit ? (<input ref={inputRef} value={editToDo} onChange={(e)=>setEditToDo(e.target.value)} className='todos_single--text'/>) : ( todo.isDone ? (
                 <s className="todos_single--text">{todo.todo}</s>
               ) : (
                 <span className="todos_single--text">{todo.todo}</span>
