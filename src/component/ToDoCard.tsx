@@ -27,9 +27,13 @@ setToDos(
 
 }
 
-const handleEdit = (id:number,) => {
-
+const handleEdit = (e:React.FormEvent, id:number) => {
+e.preventDefault();
+setToDos(toDos.map(elm =>
+     (elm.id ===id ? {...elm, todo:editToDo} : elm )))
+        setEdit(false)
 }
+
 
 
   return (
